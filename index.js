@@ -8,7 +8,9 @@ app.use(express.json());
 
 app.post("/", async (req, res) => {
   const { selector, url } = req.body;
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto(url);
 
